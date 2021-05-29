@@ -1,37 +1,47 @@
-##运行环境：
-####系统环境(Ubuntu20.04)：
+# Instruction Document of xv6-riscv-rust-project
 
-    Linux book-VirtualBox 5.8.0-53-generic #60~20.04.1-Ubuntu SMP Thu May 6 09:52:46 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux
+## Environment
+
+### Operating System
+
+`Linux 5.8.0-53-generic #60~20.04.1-Ubuntu`
     
-####仿真环境(Qemu):
+### Simulator
 
-    wget https://download.qemu.org/qemu-4.1.0.tar.xz  #下载后解压并进入目录
-    ./configure                                       #默认安装所有目标平台，产物路径为/usr/local/bin
-    make -j4
-    make install
+Install the qemu
 
-####语言(Rust)
+```sh
+ wget https://download.qemu.org/qemu-4.1.0.tar.xz  # Download qemu
+ ./configure                                       # configure it
+ make -j4
+ make install # install
+ ```
 
-    1. curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh   #下载Rust安装包
-    2. source ~/.bashrc
-    3. cd ./72-code
-    4. rustup target add riscv64gc-unknown-none-elf                     #添加交叉编译器
-    5. cargo run
+### Rust tool chain
 
-##使用说明：
+```sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh   # download rust development tool (compiler, cargo, rustup, ...)
+source ~/.bashrc
+cd ./72-code/xv6-riscv-rust
+rustup target add riscv64gc-unknown-none-elf                     # add cross-compiler
+cargo run # build the project.
+```
 
-    cd ./72-code
-    cargo run       #编译并运行程序
+## How to run?
 
-    1. 运行成功后可以打字，但最多只能输入128个字符。目前按退回键并不会删除字符，只会输出空格。
+``` sh
+cd ./72-code/xv6-riscv-rust
+cargo run   # Compile and run the project on qemu.
+```
 
-    2. 将src/process/proc.rs文件中，syscall()函数的a7修改一下：
-    更改为1可以测试fork，目前fork会一直运行，生成63个子进程。
-    更改为5目前read没实现（因为原项目过于残缺控制台不能输入任何字符，要先实现控制台的输入才能实现sys_read，因此我们去实现了控制台的输入）。
-    更改为7可以测试sys_exec，但目前没能完全实现，只实现了path转inode这一步，第二步加载elf文件到内存还没实现（这是因为elf文件需要file system的支持，但原项目过于残缺，file system没实现完全，因此我们去尝试修复补全file system）
-    
-    3. 本文件保留了git，并且没有commit，因此可以用vscode打开，下载git插件，在左侧栏从上往下选第三个源代码管理，可以看到所有的代码更改记录，并与源文件做对比。
+After running successfully, you can type, but you can only enter 128 characters at most. Currently pressing the back key does not delete characters, only spaces are output.
 
-git比较文件如下：
+Modify `a7` of the `jsyscall()` function in the `jsrc/process/proc.rs` file:
+Change it to **1** to test the `sys_fork()`. At present, the fork will always run, spawning 63 child processes.
+Changed to **5**, currently read is not implemented (because the original project is too incomplete and the console cannot enter any characters, the console input must be implemented before sys_read can be implemented, so we have implemented the console input).
+Change to **7** can test `sys_exec()`, but it has not been fully realized at present, only the step of path to inode has been realized, and the second step of loading the elf file into the memory has not been realized (this is because the elf file needs the support of the file system, but the original project is too Incomplete, the file system is not complete, so we try to repair and complete the file system)
 
+This file retains git and has no commit, so you can open it with **vscode**, download the git plug-in, select the third source code management from top to bottom in the left column, you can see all the code change records, and do it with the source file Compared.
+
+An example of git comparison files is as follows:
 ![](../images/git.png)
