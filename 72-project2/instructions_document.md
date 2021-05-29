@@ -2,12 +2,16 @@
 ####系统环境(Ubuntu20.04)：
 
     Linux book-VirtualBox 5.8.0-53-generic #60~20.04.1-Ubuntu SMP Thu May 6 09:52:46 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux
+    
 ####仿真环境(Qemu):
+
     wget https://download.qemu.org/qemu-4.1.0.tar.xz  #下载后解压并进入目录
     ./configure                                       #默认安装所有目标平台，产物路径为/usr/local/bin
     make -j4
     make install
+
 ####语言(Rust)
+
     1. curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh   #下载Rust安装包
     2. source ~/.bashrc
     3. cd ./72-code
@@ -15,6 +19,7 @@
     5. cargo run
 
 ##使用说明：
+
     cd ./72-code
     cargo run       #编译并运行程序
 
@@ -28,4 +33,5 @@
     3. 本文件保留了git，并且没有commit，因此可以用vscode打开，下载git插件，在左侧栏从上往下选第三个源代码管理，可以看到所有的代码更改记录，并与源文件做对比。
 
 git比较文件如下：
+
 ![](../images/git.png)
